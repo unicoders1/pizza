@@ -26,8 +26,8 @@ typedef enum
 
 typedef struct
 {
-	int			i;
-	int			j;
+	int			x;
+	int			y;
 }				t_vector;
 
 typedef struct
@@ -42,6 +42,7 @@ typedef struct
 {
 	int			m_count;
 	int			t_count;
+	int 		marker;
 }				t_cell;
 
 typedef struct
@@ -50,11 +51,18 @@ typedef struct
 	t_vector	end;
 }				t_scope;
 
+typedef struct		s_out
+{
+	char 			*data;
+	struct s_out	*next;
+}					t_out;
+
 typedef	struct		s_list
 {
 	t_scope			*scope;
-	struct s_list	*next;
 	float			diff;
+	t_out			*out;
+	struct s_list	*next;
 }					t_list;
 
 t_info			info;
@@ -70,5 +78,11 @@ int				ingr_count(t_vector start, t_vector end, t_ingr ingr);
 t_vector		get_vector(int i, int j);
 void			exit_error(char *message);
 char			**ft_strsplit(char const *str, char c);
+
+/*
+ * start_cut.c
+ */
+
+void	start_cut(void);
 
 #endif

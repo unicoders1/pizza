@@ -37,7 +37,7 @@ static void print_ingr_count(void)
 	t_vector start;
 	t_vector end;
 
-	scanf("%d %d %d %d", &start.i, &start.j, &end.i, &end.j);
+	scanf("%d %d %d %d", &start.x, &start.y, &end.x, &end.y);
 	printf("M: %d, T: %d\n",
 		ingr_count(start, end, MUSHROOM),
 		ingr_count(start, end, TOMATO));
@@ -45,20 +45,23 @@ static void print_ingr_count(void)
 
 static void print_list(void)
 {
-	while (scopes)
+	t_list	*sc;
+
+	sc = scopes;
+	while (sc)
 	{
-		printf("%-3d %-3d, diff: %f\n", scopes->scope->start.i, scopes->scope->start.j
-			, scopes->diff);
+		printf("%-3d %-3d, diff: %f\n", sc->scope->start.x, sc->scope->start.y
+			, sc->diff);
 		fflush(stdout);
-		scopes = scopes->next;
+		sc = sc->next;
 	}
 }
 
 t_vector	get_vector(int i, int j)
 {
 	t_vector v;
-	v.i = i;
-	v.j = j;
+	v.x = i;
+	v.y = j;
 	return (v);
 }
 
@@ -82,5 +85,6 @@ int			main(int argc, char const *argv[])
 		else
 			exit_error("open file error");
 	}
+	start_cut();
 	return (0);
 }

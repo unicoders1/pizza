@@ -33,6 +33,7 @@ static void			set_ingr_count(char ingr, int i, int j)
 
 	c.m_count = 0;
 	c.t_count = 0;
+	c.marker = 0;
 	if (ingr == 'M')
 		c.m_count = 1;
 	else if (ingr == 'T')

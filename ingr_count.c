@@ -30,12 +30,12 @@ int					ingr_count(t_vector start, t_vector end, t_ingr ingr)
 	top = 0;
 	left = 0;
 	topleft = 0;
-	all = get_ingr(&pizza[end.i][end.j], ingr);
-	if (start.i > 0)
-		top = get_ingr(&pizza[start.i - 1][end.j], ingr);
-	if (start.j > 0)
-		left = get_ingr(&pizza[end.i][start.j - 1], ingr);
-	if (start.i > 0 && start.j > 0)
-		topleft = get_ingr(&pizza[start.i - 1][start.j - 1], ingr);
+	all = get_ingr(&pizza[end.x][end.y], ingr);
+	if (start.x > 0)
+		top = get_ingr(&pizza[start.x - 1][end.y], ingr);
+	if (start.y > 0)
+		left = get_ingr(&pizza[end.x][start.y - 1], ingr);
+	if (start.x > 0 && start.y > 0)
+		topleft = get_ingr(&pizza[start.x - 1][start.y - 1], ingr);
 	return (all - top - left + topleft);
 }
