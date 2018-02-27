@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdio.h>
 #include "pizza.h"
 
 static void	print_ingr_count_all(void)
@@ -49,7 +47,7 @@ static void print_list(void)
 {
 	while (scopes)
 	{
-		printf("%-3d %-3d, diff: %f\n", scopes->field->start.i, scopes->field->start.j
+		printf("%-3d %-3d, diff: %f\n", scopes->scope->start.i, scopes->scope->start.j
 			, scopes->diff);
 		fflush(stdout);
 		scopes = scopes->next;
@@ -66,15 +64,15 @@ t_vector	get_vector(int i, int j)
 
 int			main(int argc, char const *argv[])
 {
-	int fd;
+	FILE	*fptr;
 
 	if (argc == 2)
 	{
-		fd = open(argv[1], O_RDONLY);
-		if (fd >= 0)
+		fptr = fopen(argv[1], "r");
+		if (fptr)
 		{
-			pizza_read_info(fd);
-			pizza_read(fd);
+			pizza_read_info(fptr);
+			pizza_read(fptr);
 			set_scopes();
 			/*print_ingr_count_all();
 			while (true)
