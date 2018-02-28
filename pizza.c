@@ -37,7 +37,7 @@ static void print_ingr_count(void)
 	t_vector start;
 	t_vector end;
 
-	scanf("%d %d %d %d", &start.i, &start.j, &end.i, &end.j);
+	scanf("%d %d %d %d", &start.y, &start.x, &end.y, &end.x);
 	printf("M: %d, T: %d\n",
 		ingr_count(start, end, MUSHROOM),
 		ingr_count(start, end, TOMATO));
@@ -50,7 +50,7 @@ static void print_list(void)
 	sc = scopes;
 	while (sc)
 	{
-		printf("%-3d %-3d, diff: %f\n", sc->scope->start.y, sc->scope->start.y
+		printf("%-3d %-3d, diff: %f\n", sc->scope->start.y, sc->scope->start.x
 				, sc->diff);
 		fflush(stdout);
 		sc = sc->next;
@@ -76,8 +76,8 @@ void		print_out(void)
 t_vector	get_vector(int i, int j)
 {
 	t_vector v;
-	v.i = i;
-	v.j = j;
+	v.y = i;
+	v.x = j;
 	return (v);
 }
 

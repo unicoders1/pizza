@@ -26,8 +26,8 @@ typedef enum
 
 typedef struct
 {
-	int			i;
-	int			j;
+	int			y;
+	int			x;
 }				t_vector;
 
 typedef struct

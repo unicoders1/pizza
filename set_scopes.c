@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "pizza.h"
 
-#define MAX(a, b) ((a) > (b) ? a : b)
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 static const int	scope_factor = 1;
 
@@ -21,15 +21,15 @@ static inline t_vector	get_end(t_vector start, int shift)
 {
 	t_vector end;
 
-	if (start.i + shift < info.rows)
-		end.i = start.i + shift - 1;
+	if (start.y + shift < info.rows)
+		end.y = start.y + shift - 1;
 	else
-		end.i = info.rows - 1;
+		end.y = info.rows - 1;
 
-	if (start.j + shift < info.columns)
-		end.j = start.j + shift - 1;
+	if (start.x + shift < info.columns)
+		end.x = start.x + shift - 1;
 	else
-		end.j = info.columns - 1;
+		end.x = info.columns - 1;
 	return (end);
 }
 
@@ -57,8 +57,8 @@ void					set_scopes(void)
 		for (int j = 0; j < info.columns; j += shift)
 		{
 			s = malloc(sizeof(*s));
-			s->start.i = i;
-			s->start.j = j;
+			s->start.y = i;
+			s->start.x = j;
 			s->end = get_end(s->start, shift);
 			s->out = NULL;
 			adding_to_list(s, get_scope_diff(s));

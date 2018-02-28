@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "pizza.h"
-#include "get_next_line/get_next_line.h"
-#include "libft/libft.h"
 
 static int 			ingr_count_prev(int i, int j, t_ingr ingr)
 {
@@ -51,7 +48,7 @@ static void			pizza_read_line(char *line, int i)
 	int		j;
 
 	j = 0;
-	while (*line)
+	while (*line && *line != '\n')
 	{
 		set_ingr_count(*line, i, j);
 		++line;
@@ -59,36 +56,37 @@ static void			pizza_read_line(char *line, int i)
 	}
 }
 
-void				pizza_read(int fd)
+void				pizza_read(FILE *fptr)
 {
 	char	*line;
-	int		i;
+	size_t	len;
+	int 	i = 0;
 
 	pizza = malloc(sizeof(*pizza) * info.rows);
-	i = 0;
-	while (get_next_line(fd, &line))
+	while (getline(&line, &len, fptr) > 0)
 	{
 		pizza[i] = malloc(sizeof(*pizza) * info.columns);
 		pizza_read_line(line, i);
-		free(line);
 		++i;
 	}
 	if (i != info.rows)
 		exit_error("map size doesn't match map info");
+	free(line);
 }
 
-void				pizza_read_info(int fd)
+void				pizza_read_info(FILE *fptr)
 {
 	char	*line;
 	char	**info_strs;
+	size_t	len;
 
-	if (get_next_line(fd, &line))
+	if (getline(&line, &len, fptr) > 0)
 	{
 		info_strs = ft_strsplit(line, ' ');
-		info.rows = ft_atoi(info_strs[0]);
-		info.columns = ft_atoi(info_strs[1]);
-		info.ingridient_min_count = ft_atoi(info_strs[2]);
-		info.piece_max_size = ft_atoi(info_strs[3]);
+		info.rows = atoi(info_strs[0]);
+		info.columns = atoi(info_strs[1]);
+		info.ingridient_min_count = atoi(info_strs[2]);
+		info.piece_max_size = atoi(info_strs[3]);
 	}
 	else
 		exit_error("error on reading pizza info");
