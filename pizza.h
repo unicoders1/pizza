@@ -45,23 +45,23 @@ typedef struct
 	int 		marker;
 }				t_cell;
 
-typedef struct
-{
-	t_vector	start;
-	t_vector	end;
-}				t_scope;
-
 typedef struct		s_out
 {
 	char 			*data;
 	struct s_out	*next;
 }					t_out;
 
+typedef struct
+{
+	t_vector	start;
+	t_vector	end;
+	t_out		*out;
+}				t_scope;
+
 typedef	struct		s_list
 {
 	t_scope			*scope;
 	float			diff;
-	t_out			*out;
 	struct s_list	*next;
 }					t_list;
 

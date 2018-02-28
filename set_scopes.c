@@ -60,6 +60,7 @@ void					set_scopes(void)
 			s->start.x = i;
 			s->start.y = j;
 			s->end = get_end(s->start, shift);
+			s->out = NULL;
 			adding_to_list(s, get_scope_diff(s));
 		}
 	}

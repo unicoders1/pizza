@@ -57,6 +57,22 @@ static void print_list(void)
 	}
 }
 
+void		print_out(void)
+{
+	t_list	*sc = scopes;
+
+	while (sc)
+	{
+		t_out	*out = sc->scope->out;
+		while (out)
+		{
+			printf("%s", out->data);
+			out = out->next;
+		}
+		sc = sc->next;
+	}
+}
+
 t_vector	get_vector(int i, int j)
 {
 	t_vector v;
@@ -86,5 +102,6 @@ int			main(int argc, char const *argv[])
 			exit_error("open file error");
 	}
 	start_cut();
+	print_out();
 	return (0);
 }
