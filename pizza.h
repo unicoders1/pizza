@@ -68,6 +68,7 @@ typedef	struct		s_list
 t_info			info;
 t_cell			**pizza;
 t_list			*scopes;
+extern int cellcount;
 
 
 void			pizza_read_info(FILE *fptr);

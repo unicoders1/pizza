@@ -66,7 +66,7 @@ void		print_out(void)
 		t_out	*out = sc->scope->out;
 		while (out)
 		{
-			printf("%s", out->data);
+			printf("%s\n", out->data);
 			out = out->next;
 		}
 		sc = sc->next;
@@ -103,5 +103,6 @@ int			main(int argc, char const *argv[])
 	}
 	start_cut();
 	print_out();
+	printf("count: %d\n", cellcount);
 	return (0);
 }

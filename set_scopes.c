@@ -15,7 +15,7 @@
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-static const int	scope_factor = 1;
+static const int	scope_factor = 4;
 
 static inline t_vector	get_end(t_vector start, int shift)
 {
@@ -51,12 +51,12 @@ void					set_scopes(void)
 	t_scope	*s;
 
 	scopes = NULL;
-	shift = info.piece_max_size * scope_factor;
+	shift = 1;//info.piece_max_size * scope_factor;
 	for (int i = 0; i < info.rows; i += shift)
 	{
 		for (int j = 0; j < info.columns; j += shift)
 		{
-			s = malloc(sizeof(*s));
+			s = malloc(sizeof(t_scope));
 			s->start.y = i;
 			s->start.x = j;
 			s->end = get_end(s->start, shift);

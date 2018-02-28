@@ -12,6 +12,11 @@
 
 #include "pizza.h"
 
+void	fuck()
+{
+	;
+}
+
 static inline int	get_ingr(t_cell *c, t_ingr ingr)
 {
 	if (ingr == TOMATO)
@@ -30,6 +35,8 @@ int					ingr_count(t_vector start, t_vector end, t_ingr ingr)
 	top = 0;
 	left = 0;
 	topleft = 0;
+	if (end.x >= info.columns || end.y >= info.rows)
+		fuck();
 	all = get_ingr(&pizza[end.y][end.x], ingr);
 	if (start.y > 0)
 		top = get_ingr(&pizza[start.y - 1][end.x], ingr);

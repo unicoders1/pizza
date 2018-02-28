@@ -32,6 +32,7 @@ static void			set_ingr_count(char ingr, int i, int j)
 
 	c.m_count = 0;
 	c.t_count = 0;
+	c.marker = 0;
 	if (ingr == 'M')
 		c.m_count = 1;
 	else if (ingr == 'T')
@@ -59,13 +60,13 @@ static void			pizza_read_line(char *line, int i)
 void				pizza_read(FILE *fptr)
 {
 	char	*line;
-	size_t	len;
+	size_t	len = 0;
 	int 	i = 0;
 
-	pizza = malloc(sizeof(*pizza) * info.rows);
+	pizza = (t_cell**)malloc(sizeof(t_cell*) * info.rows);
 	while (getline(&line, &len, fptr) > 0)
 	{
-		pizza[i] = malloc(sizeof(*pizza) * info.columns);
+		pizza[i] = (t_cell*)malloc(sizeof(t_cell) * info.columns);
 		pizza_read_line(line, i);
 		++i;
 	}
