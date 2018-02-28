@@ -16,9 +16,9 @@ int 	check_hpiece(int sx, int sy, int ex, int ey, int *width, int *height)
 	t_vector	start;
 	t_vector	end;
 
-	start.x = sx;
+	start.y = sx;
 	start.y = sy;
-	end.x = ex;
+	end.y = ex;
 	end.y = ey;
 	if ((ex - sx) * (ey - sy) > info.piece_max_size)
 	{
@@ -37,7 +37,7 @@ int 	check_hpiece(int sx, int sy, int ex, int ey, int *width, int *height)
 			if (sx == ex)
 			{
 				sy++;
-				sx = start.x;
+				sx = start.y;
 			}
 		}
 		return (1);
@@ -55,9 +55,9 @@ int 	check_vpiece(int sx, int sy, int ex, int ey, int *width, int *height)
 	t_vector	start;
 	t_vector	end;
 
-	start.x = sx;
+	start.y = sx;
 	start.y = sy;
-	end.x = ex;
+	end.y = ex;
 	end.y = ey;
 	if ((ex - sx) * (ey - sy) > info.piece_max_size)
 	{
@@ -76,7 +76,7 @@ int 	check_vpiece(int sx, int sy, int ex, int ey, int *width, int *height)
 			if (sx == ex)
 			{
 				sy++;
-				sx = start.x;
+				sx = start.y;
 			}
 		}
 		return (1);
@@ -113,7 +113,7 @@ void	try_cut(t_scope *scope, int y, int x)
 
 void 	cut_scope(t_scope *scope)
 {
-	int	x_start = scope->start.x;
+	int	x_start = scope->start.y;
 	int	y_start = scope->start.y;
 	int	x = x_start;
 	int	y = y_start - 1;
