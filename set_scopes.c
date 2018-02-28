@@ -15,7 +15,7 @@
 
 #define MAX(a, b) ((a) > (b) ? a : b)
 
-static const int	scope_factor = 4;
+static const int	scope_factor = 1;
 
 static inline t_vector	get_end(t_vector start, int shift)
 {
@@ -60,6 +60,7 @@ void					set_scopes(void)
 			s->start.i = i;
 			s->start.j = j;
 			s->end = get_end(s->start, shift);
+			s->out = NULL;
 			adding_to_list(s, get_scope_diff(s));
 		}
 	}

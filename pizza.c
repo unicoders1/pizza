@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdio.h>
 #include "pizza.h"
 
 static void	print_ingr_count_all(void)
@@ -47,12 +45,31 @@ static void print_ingr_count(void)
 
 static void print_list(void)
 {
-	while (scopes)
+	t_list	*sc;
+
+	sc = scopes;
+	while (sc)
 	{
-		printf("%-3d %-3d, diff: %f\n", scopes->field->start.i, scopes->field->start.j
-			, scopes->diff);
+		printf("%-3d %-3d, diff: %f\n", sc->scope->start.y, sc->scope->start.y
+				, sc->diff);
 		fflush(stdout);
-		scopes = scopes->next;
+		sc = sc->next;
+	}
+}
+
+void		print_out(void)
+{
+	t_list	*sc = scopes;
+
+	while (sc)
+	{
+		t_out	*out = sc->scope->out;
+		while (out)
+		{
+			printf("%s", out->data);
+			out = out->next;
+		}
+		sc = sc->next;
 	}
 }
 
@@ -66,15 +83,15 @@ t_vector	get_vector(int i, int j)
 
 int			main(int argc, char const *argv[])
 {
-	int fd;
+	FILE	*fptr;
 
 	if (argc == 2)
 	{
-		fd = open(argv[1], O_RDONLY);
-		if (fd >= 0)
+		fptr = fopen(argv[1], "r");
+		if (fptr)
 		{
-			pizza_read_info(fd);
-			pizza_read(fd);
+			pizza_read_info(fptr);
+			pizza_read(fptr);
 			set_scopes();
 			/*print_ingr_count_all();
 			while (true)
@@ -84,5 +101,7 @@ int			main(int argc, char const *argv[])
 		else
 			exit_error("open file error");
 	}
+	start_cut();
+	print_out();
 	return (0);
 }
