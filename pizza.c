@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
+#include <stdio.h>
 #include "pizza.h"
 
 static void	print_ingr_count_all(void)
@@ -37,7 +39,7 @@ static void print_ingr_count(void)
 	t_vector start;
 	t_vector end;
 
-	scanf("%d %d %d %d", &start.x, &start.y, &end.x, &end.y);
+	scanf("%d %d %d %d", &start.i, &start.j, &end.i, &end.j);
 	printf("M: %d, T: %d\n",
 		ingr_count(start, end, MUSHROOM),
 		ingr_count(start, end, TOMATO));
@@ -45,37 +47,34 @@ static void print_ingr_count(void)
 
 static void print_list(void)
 {
-	t_list	*sc;
-
-	sc = scopes;
-	while (sc)
+	while (scopes)
 	{
-		printf("%-3d %-3d, diff: %f\n", sc->scope->start.x, sc->scope->start.y
-			, sc->diff);
+		printf("%-3d %-3d, diff: %f\n", scopes->field->start.i, scopes->field->start.j
+			, scopes->diff);
 		fflush(stdout);
-		sc = sc->next;
+		scopes = scopes->next;
 	}
 }
 
 t_vector	get_vector(int i, int j)
 {
 	t_vector v;
-	v.x = i;
-	v.y = j;
+	v.i = i;
+	v.j = j;
 	return (v);
 }
 
 int			main(int argc, char const *argv[])
 {
-	FILE	*fptr;
+	int fd;
 
 	if (argc == 2)
 	{
-		fptr = fopen(argv[1], "r");
-		if (fptr)
+		fd = open(argv[1], O_RDONLY);
+		if (fd >= 0)
 		{
-			pizza_read_info(fptr);
-			pizza_read(fptr);
+			pizza_read_info(fd);
+			pizza_read(fd);
 			set_scopes();
 			/*print_ingr_count_all();
 			while (true)
@@ -85,6 +84,5 @@ int			main(int argc, char const *argv[])
 		else
 			exit_error("open file error");
 	}
-	start_cut();
 	return (0);
 }

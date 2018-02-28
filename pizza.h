@@ -13,10 +13,6 @@
 #ifndef PIZZA_H
 # define PIZZA_H
 # include <stdbool.h>
-# include <stdlib.h>
-
-# include <stdio.h>
-# include <fcntl.h>
 
 typedef enum
 {
@@ -26,8 +22,8 @@ typedef enum
 
 typedef struct
 {
-	int			x;
-	int			y;
+	int			i;
+	int			j;
 }				t_vector;
 
 typedef struct
@@ -42,7 +38,6 @@ typedef struct
 {
 	int			m_count;
 	int			t_count;
-	int 		marker;
 }				t_cell;
 
 typedef struct
@@ -51,18 +46,11 @@ typedef struct
 	t_vector	end;
 }				t_scope;
 
-typedef struct		s_out
-{
-	char 			*data;
-	struct s_out	*next;
-}					t_out;
-
 typedef	struct		s_list
 {
 	t_scope			*scope;
-	float			diff;
-	t_out			*out;
 	struct s_list	*next;
+	float			diff;
 }					t_list;
 
 t_info			info;
@@ -70,19 +58,12 @@ t_cell			**pizza;
 t_list			*scopes;
 
 
-void			pizza_read_info(FILE *fptr);
-void			pizza_read(FILE *fptr);
+void			pizza_read_info(int fd);
+void			pizza_read(int fd);
 void			set_scopes(void);
 void			adding_to_list(t_scope *field, float diff);
 int				ingr_count(t_vector start, t_vector end, t_ingr ingr);
 t_vector		get_vector(int i, int j);
 void			exit_error(char *message);
-char			**ft_strsplit(char const *str, char c);
-
-/*
- * start_cut.c
- */
-
-void	start_cut(void);
 
 #endif
