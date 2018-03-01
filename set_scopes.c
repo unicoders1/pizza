@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <time.h>
 #include "pizza.h"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-static const int	scope_factor = 4;
+static const int	scope_factor = 5;
 
 static inline t_vector	get_end(t_vector start, int shift)
 {
@@ -48,10 +49,11 @@ static float			get_scope_diff(t_scope *s)
 void					set_scopes(void)
 {
 	int		shift;
+    int     count = 0;
 	t_scope	*s;
 
 	scopes = NULL;
-	shift = 1;//info.piece_max_size * scope_factor;
+	shift = 1000;//info.piece_max_size * scope_factor;
 	for (int i = 0; i < info.rows; i += shift)
 	{
 		for (int j = 0; j < info.columns; j += shift)
@@ -61,7 +63,23 @@ void					set_scopes(void)
 			s->start.x = j;
 			s->end = get_end(s->start, shift);
 			s->out = NULL;
+			//tm_lst_add(&scopes, tm_lst_new(s, get_scope_diff(s)));
 			adding_to_list(s, get_scope_diff(s));
+            ++count;
 		}
 	}
+    //piece_time = 100.0f * CLOCKS_PER_SEC / (float)count;
+	/*for (int i = info.rows - 1; i >= 0; i -= shift)
+	{
+		for (int j = info.columns - 1; j >= 0 ; j -= shift)
+		{
+			s = malloc(sizeof(t_scope));
+			s->start.y = i;
+			s->start.x = j;
+			s->end = get_end(s->start, shift);
+			s->out = NULL;
+			tm_lst_add(&scopes, tm_lst_new(s, get_scope_diff(s)));
+			//adding_to_list(s, get_scope_diff(s));
+		}
+	}*/
 }

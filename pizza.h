@@ -17,6 +17,7 @@
 
 # include <stdio.h>
 # include <fcntl.h>
+# include "stack.h"
 
 typedef enum
 {
@@ -51,12 +52,18 @@ typedef struct		s_out
 	struct s_out	*next;
 }					t_out;
 
-typedef struct
+typedef struct  e_scope
 {
 	t_vector	start;
 	t_vector	end;
 	t_out		*out;
 }				t_scope;
+
+typedef struct  e_piece
+{
+    t_vector	start;
+    t_vector	end;
+}				t_piece;
 
 typedef	struct		s_list
 {
@@ -68,7 +75,12 @@ typedef	struct		s_list
 t_info			info;
 t_cell			**pizza;
 t_list			*scopes;
+t_out           *output;
+float           piece_time;
+void	tm_lst_add(t_list **begin, t_list *new);
+t_list	*tm_lst_new(t_scope *scope, float diff);
 extern int cellcount;
+int				markers[300][300];
 
 
 void			pizza_read_info(FILE *fptr);

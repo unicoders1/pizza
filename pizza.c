@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <strings.h>
 #include "pizza.h"
 
 static void	print_ingr_count_all(void)
@@ -59,17 +60,12 @@ static void print_list(void)
 
 void		print_out(void)
 {
-	t_list	*sc = scopes;
+	t_out	*out = output;
 
-	while (sc)
+	while (out)
 	{
-		t_out	*out = sc->scope->out;
-		while (out)
-		{
-			printf("%s\n", out->data);
-			out = out->next;
-		}
-		sc = sc->next;
+		printf("%s\n", out->data);
+		out = out->next;
 	}
 }
 
@@ -81,10 +77,30 @@ t_vector	get_vector(int i, int j)
 	return (v);
 }
 
+void	print_counts(void)
+{
+	for (int i = 0; i < info.rows; ++i) {
+		for (int j = 0; j <= info.columns; ++j) {
+			printf("%2d", markers[i][j]);
+		}
+		puts("");
+	}
+}
+void	zero_counts(void)
+{
+    for (int i = 0; i < info.rows; ++i) {
+        for (int j = 0; j <= info.columns; ++j) {
+            markers[i][j] = 0;
+        }
+    }
+}
+
 int			main(int argc, char const *argv[])
 {
 	FILE	*fptr;
 
+    zero_counts();
+	output = NULL;
 	if (argc == 2)
 	{
 		fptr = fopen(argv[1], "r");
@@ -96,13 +112,13 @@ int			main(int argc, char const *argv[])
 			/*print_ingr_count_all();
 			while (true)
 				print_ingr_count();*/
-			print_list();
+			//print_list();
 		}
 		else
 			exit_error("open file error");
 	}
 	start_cut();
 	print_out();
-	printf("count: %d\n", cellcount);
+	//printf("count: %d\n", cellcount);
 	return (0);
 }

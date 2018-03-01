@@ -12,4 +12,5 @@ add_executable(pizza
         set_scopes.c
         sort.c
         ft_strsplit.c
-        cut_pizza.c)
+        cut_pizza.c
+        stack.c)
